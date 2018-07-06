@@ -8,7 +8,6 @@
 </head>
 
 <body>
-  <div id="debug"></div>
   <div class="divWidth" id="tablehead">
     <table class="divWidth">
       <thead>
@@ -19,12 +18,12 @@
     </table>
   </div>
   <div id="container">
-    <div id="scroll" /></div>
-  <table id="table">
-    <tbody id="tbody">
-    </tbody>
-  </table>
+    <div id="scroll"></div>
+    <table id="table">
+      <tbody id="tbody"></tbody>
+    </table>
   </div>
+  <div id="debug"></div>
 </body>
 
 </html>
@@ -86,7 +85,7 @@
       for (let i = 0; i < maxRows; i++) {
         let tr = document.getElementById(i);
         let td = tr.getElementsByTagName("td")[0];
-        if(arrayData[i]){
+        if (arrayData[i]) {
           td.innerHTML = arrayData[i].data.company;
           tr.style.top = (arrayData[i].startAt * trHeight) + 'px';
         }

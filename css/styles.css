@@ -2,8 +2,8 @@
   width: 300px; 
   height: 300px; 
   position: relative;
-  /* border: 1px solid black; */
   overflow: auto;
+  box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
 }
 
 #scroll{
