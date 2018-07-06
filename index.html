@@ -8,22 +8,27 @@
 </head>
 
 <body>
-  <div class="divWidth" id="tablehead">
-    <table class="divWidth">
-      <thead>
-        <tr id="trHead">
-          <th id="thHead">Linhas</th>
-        </tr>
-      </thead>
-    </table>
+  <div id="divTitle">
+    <h1>Desafio Ntm</h1>
   </div>
-  <div id="container">
-    <div id="scroll"></div>
-    <table id="table">
-      <tbody id="tbody"></tbody>
-    </table>
+  <div id="divCenter">
+    <div class="divWidth" id="tablehead">
+      <table class="divWidth">
+        <thead>
+          <tr id="trHead">
+            <th id="thHead">Linhas</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <div id="container">
+      <div id="scroll"></div>
+      <table id="table">
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+    <div id="debug"></div>
   </div>
-  <div id="debug"></div>
 </body>
 
 </html>
@@ -51,6 +56,8 @@
     //fim
     //Alterando tamanho do scroll compatível com o tamanho total das trs
     scrollDiv.style.height = (totalRows * trHeight) + "px";
+    
+    debug();
 
     //Função que observa o evento de scroll e monta novos valores
     containerDiv.addEventListener('scroll', scrolling);
@@ -63,9 +70,6 @@
         renderRows(tbody, startAt < 0 ? 0 : startAt, maxRows);
         lastScrollChange = scroll;
       }
-
-      debug();
-
     }
     //Função que sobrescreve as trs 
     function renderRows(tbody, startAt, maxRows) {

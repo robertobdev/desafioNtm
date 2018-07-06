@@ -4,6 +4,7 @@
   position: relative;
   overflow: auto;
   box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  background-color: #fff;
 }
 
 #scroll{
@@ -32,4 +33,37 @@
 
 #thHead{
   padding: 10px;
+}
+
+#debug{
+  margin-top: 5%;
+  border: 1px solid black;
+  font-size: 18px;
+  text-align: center;
+  padding: 5px 0px 5px 0px;
+  width: 284px;
+}
+
+#divCenter{
+  width: 300px;
+  height: 600px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+body{
+  background: url("background.png");
+}
+
+#divTitle{
+  text-align: center;
+  color: white;
+  line-height: 60px;
+  font-size: 16px;
+  background-color: #6c7ae0;
+  text-transform: uppercase;
 }
