@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Teste Senai</title>
-  <link rel="stylesheet" type="text/css" href="css/styles.css"/>
+  <link rel="stylesheet" type="text/css" href="css/styles.css" />
 </head>
 
 <body>
@@ -17,11 +17,11 @@
     </thead>
   </table>
   <div id="container">
-    <div id="scroll"/></div>
-    <table id="table">
-      <tbody id="tbody">
-      </tbody>
-    </table>
+    <div id="scroll" /></div>
+  <table id="table">
+    <tbody id="tbody">
+    </tbody>
+  </table>
   </div>
 </body>
 
@@ -34,7 +34,7 @@
     let trHeight = 30;
     let totalRows = data.length;
     console.log(totalRows);
-    
+
     //fim
     let tbody = document.getElementById("tbody");
     let scrollDiv = document.getElementById("scroll");
@@ -43,8 +43,8 @@
     let lastScrolled = 0;
     let maxRows = (containerHeight / trHeight) * 20;
     //Criando tabela com os elementos permitidos
-    createAllRows(tbody,maxRows);
-    renderRows(tbody, 0);
+    createAllRows(tbody, maxRows);
+    renderRows(tbody, 0, maxRows);
     let maxScroll = containerHeight;
     let lastScrollChange;
     //fim
@@ -59,7 +59,7 @@
       if (!lastScrollChange || Math.abs(scroll - lastScrollChange) > maxScroll) {
         let startAt = parseInt(scroll / trHeight) - (containerHeight / trHeight);
 
-        renderRows(tbody, startAt < 0 ? 0 : startAt);
+        renderRows(tbody, startAt < 0 ? 0 : startAt, maxRows);
         lastScrollChange = scroll;
       }
 
@@ -68,29 +68,29 @@
     }
     //Função de adiciona nas novas tr, sem passar do limite 
     //Também reescreve a tbody
-    function renderRows(tbody, startAt) {
+    function renderRows(tbody, startAt, maxRows) {
       let finalItem = startAt + maxRows;
 
-      if (finalItem > totalRows){
+      if (finalItem > totalRows) {
         finalItem = totalRows;
       }
 
-      let fragment = document.createDocumentFragment();
+      let arrayData = [];
+
       for (let i = startAt; i < finalItem; i++) {
-        let tr = document.createElement('tr');
-        let td = document.createElement('td');
-        td.innerText = data[i].company;
-        tr.appendChild(td);
+        arrayData.push({ data: data[i], startAt: i });
+
+      }
+
+      for (let i = 0; i < maxRows; i++) {
+        let tr = document.getElementById(i);
+        let td = tr.getElementsByTagName("td")[0];
+        td.innerHTML = arrayData[i].data.company;
         tr.style.position = 'absolute';
-        tr.style.top = (i * trHeight) + 'px';
+        tr.style.top = (arrayData[i].startAt * trHeight) + 'px';
         tr.class = "row";
         tr.style.width = "280px";
-        fragment.appendChild(tr);
       }
-      for()
-
-      tbody.innerHTML = "";
-      tbody.appendChild(fragment);
     }
 
     function createAllRows(tbody, maxRows) {
