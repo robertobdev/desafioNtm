@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Teste Senai</title>
+</head>
+
+<body>
+  <div id="debug"></div>
+  <table style="width:300px">
+    <thead>
+      <tr>
+        <th>Linhas</th>
+      </tr>
+    </thead>
+  </table>
+  <div id="container" style="width: 300px; height: 300px; position:relative;border:1px solid black;overflow:auto;">
+    <div id="scroll" style="opacity: 0; position: absolute; top: 0;left: 0;width: 1px;"></div>
+    <table id="table">
+      <tbody id="tbody">
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>
+
+<script>
+  loadJSON().then(data => {
+    //Criando variáves para facilitar os calculos da table
+    var containerHeight = 300;
+    var trHeight = 30;
+    var totalRows = data.length;
+    console.log(totalRows);
+    
+    //fim
+    var tbody = document.getElementById("tbody");
+    var scrollDiv = document.getElementById("scroll");
+    var containerDiv = document.getElementById("container");
+    //Variáveis de inicialização do componente
+    var lastScrolled = 0;
+    var maxRows = (containerHeight / trHeight) * 20;
+    renderRows(tbody, 0);
+    var maxScroll = containerHeight;
+    var lastScrollChange;
+    //fim
+    //Alterando tamanho do scroll compatível com o tamanho total das trs
+    scrollDiv.style.height = (totalRows * trHeight) + "px";
+
+    //Função que observa o evento de scroll e monta novos valores
+    containerDiv.addEventListener('scroll', scrolling);
+    function scrolling(e) {
+      e.preventDefault();
+      var scroll = e.target.scrollTop;
+      if (!lastScrollChange || Math.abs(scroll - lastScrollChange) > maxScroll) {
+        var startAt = parseInt(scroll / trHeight) - (containerHeight / trHeight);
+
+        renderRows(tbody, startAt < 0 ? 0 : startAt);
+        lastScrollChange = scroll;
+      }
+
+      debug();
+
+    }
+    //Função de adiciona nas novas tr, sem passar do limite 
+    //Também reescreve a tbody
+    function renderRows(tbody, startAt) {
+      var finalItem = startAt + maxRows;
+
+      if (finalItem > totalRows){
+        finalItem = totalRows;
+      }
+
+      var fragment = document.createDocumentFragment();
+      for (var i = startAt; i < finalItem; i++) {
+        var tr = document.createElement('tr');
+        var td = document.createElement('td');
+        td.innerText = data[i].company;
+        tr.appendChild(td);
+        tr.style.position = 'absolute';
+        tr.style.top = (i * trHeight) + 'px';
+        tr.id = "row";
+        tr.style.width = "280px";
+        fragment.appendChild(tr);
+      }
+
+      tbody.innerHTML = "";
+      tbody.appendChild(fragment);
+    }
+
+    function debug() {
+      var debug = document.getElementById('debug');
+      var trLenght = document.getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+      debug.innerHTML = "";
+      debug.append("Quantidades de rows no DOM: " + trLenght);
+    }
+  });
+
+
+  function loadJSON() {
+    return fetch("dados.json")
+      .then(response => response.json());
+  }
+
+</script>
