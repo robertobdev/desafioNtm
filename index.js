@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 
 
+app.use('/css', express.static(__dirname + '/css'));
+
 app.listen('9000', () => {
   console.log("Server up");
 });

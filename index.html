@@ -4,19 +4,20 @@
 <head>
   <meta charset="UTF-8">
   <title>Teste Senai</title>
+  <link rel="stylesheet" type="text/css" href="css/styles.css"/>
 </head>
 
 <body>
   <div id="debug"></div>
-  <table style="width:300px">
+  <table id="tablehead">
     <thead>
       <tr>
         <th>Linhas</th>
       </tr>
     </thead>
   </table>
-  <div id="container" style="width: 300px; height: 300px; position:relative;border:1px solid black;overflow:auto;">
-    <div id="scroll" style="opacity: 0; position: absolute; top: 0;left: 0;width: 1px;"></div>
+  <div id="container">
+    <div id="scroll"/></div>
     <table id="table">
       <tbody id="tbody">
       </tbody>
@@ -80,7 +81,7 @@
         tr.appendChild(td);
         tr.style.position = 'absolute';
         tr.style.top = (i * trHeight) + 'px';
-        tr.id = "row";
+        tr.class = "row";
         tr.style.width = "280px";
         fragment.appendChild(tr);
       }
