@@ -9,13 +9,15 @@
 
 <body>
   <div id="debug"></div>
-  <table id="tablehead">
-    <thead>
-      <tr>
-        <th>Linhas</th>
-      </tr>
-    </thead>
-  </table>
+  <div class="divWidth" id="tablehead">
+    <table class="divWidth">
+      <thead>
+        <tr id="trHead">
+          <th id="thHead">Linhas</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
   <div id="container">
     <div id="scroll" /></div>
   <table id="table">
@@ -88,9 +90,6 @@
           td.innerHTML = arrayData[i].data.company;
           tr.style.top = (arrayData[i].startAt * trHeight) + 'px';
         }
-        tr.style.position = 'absolute';
-        tr.class = "row";
-        tr.style.width = "280px";
       }
     }
     //Função que cria todas das tr uma unica vez
@@ -102,9 +101,8 @@
         tr.appendChild(td);
         tr.style.position = 'absolute';
         tr.style.top = (i * trHeight) + 'px';
-        tr.class = "row";
         tr.id = i;
-        tr.style.width = "280px";
+        tr.style.width = "249px";
         fragment.appendChild(tr);
       }
       tbody.appendChild(fragment);
