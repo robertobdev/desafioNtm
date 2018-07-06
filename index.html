@@ -66,8 +66,7 @@
       debug();
 
     }
-    //Função de adiciona nas novas tr, sem passar do limite 
-    //Também reescreve a tbody
+    //Função que sobrescreve as trs 
     function renderRows(tbody, startAt, maxRows) {
       let finalItem = startAt + maxRows;
 
@@ -92,7 +91,7 @@
         tr.style.width = "280px";
       }
     }
-
+    //Função que cria todas das tr uma unica vez
     function createAllRows(tbody, maxRows) {
       let fragment = document.createDocumentFragment();
       for (let i = 0; i < maxRows; i++) {
