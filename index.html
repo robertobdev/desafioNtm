@@ -30,21 +30,23 @@
 <script>
   loadJSON().then(data => {
     //Criando variáves para facilitar os calculos da table
-    var containerHeight = 300;
-    var trHeight = 30;
-    var totalRows = data.length;
+    let containerHeight = 300;
+    let trHeight = 30;
+    let totalRows = data.length;
     console.log(totalRows);
     
     //fim
-    var tbody = document.getElementById("tbody");
-    var scrollDiv = document.getElementById("scroll");
-    var containerDiv = document.getElementById("container");
+    let tbody = document.getElementById("tbody");
+    let scrollDiv = document.getElementById("scroll");
+    let containerDiv = document.getElementById("container");
     //Variáveis de inicialização do componente
-    var lastScrolled = 0;
-    var maxRows = (containerHeight / trHeight) * 20;
+    let lastScrolled = 0;
+    let maxRows = (containerHeight / trHeight) * 20;
+    //Criando tabela com os elementos permitidos
+    createAllRows(tbody,maxRows);
     renderRows(tbody, 0);
-    var maxScroll = containerHeight;
-    var lastScrollChange;
+    let maxScroll = containerHeight;
+    let lastScrollChange;
     //fim
     //Alterando tamanho do scroll compatível com o tamanho total das trs
     scrollDiv.style.height = (totalRows * trHeight) + "px";
@@ -53,9 +55,9 @@
     containerDiv.addEventListener('scroll', scrolling);
     function scrolling(e) {
       e.preventDefault();
-      var scroll = e.target.scrollTop;
+      let scroll = e.target.scrollTop;
       if (!lastScrollChange || Math.abs(scroll - lastScrollChange) > maxScroll) {
-        var startAt = parseInt(scroll / trHeight) - (containerHeight / trHeight);
+        let startAt = parseInt(scroll / trHeight) - (containerHeight / trHeight);
 
         renderRows(tbody, startAt < 0 ? 0 : startAt);
         lastScrollChange = scroll;
@@ -67,16 +69,16 @@
     //Função de adiciona nas novas tr, sem passar do limite 
     //Também reescreve a tbody
     function renderRows(tbody, startAt) {
-      var finalItem = startAt + maxRows;
+      let finalItem = startAt + maxRows;
 
       if (finalItem > totalRows){
         finalItem = totalRows;
       }
 
-      var fragment = document.createDocumentFragment();
-      for (var i = startAt; i < finalItem; i++) {
-        var tr = document.createElement('tr');
-        var td = document.createElement('td');
+      let fragment = document.createDocumentFragment();
+      for (let i = startAt; i < finalItem; i++) {
+        let tr = document.createElement('tr');
+        let td = document.createElement('td');
         td.innerText = data[i].company;
         tr.appendChild(td);
         tr.style.position = 'absolute';
@@ -85,14 +87,31 @@
         tr.style.width = "280px";
         fragment.appendChild(tr);
       }
+      for()
 
       tbody.innerHTML = "";
       tbody.appendChild(fragment);
     }
 
+    function createAllRows(tbody, maxRows) {
+      let fragment = document.createDocumentFragment();
+      for (let i = 0; i < maxRows; i++) {
+        let tr = document.createElement('tr');
+        let td = document.createElement('td');
+        tr.appendChild(td);
+        tr.style.position = 'absolute';
+        tr.style.top = (i * trHeight) + 'px';
+        tr.class = "row";
+        tr.id = i;
+        tr.style.width = "280px";
+        fragment.appendChild(tr);
+      }
+      tbody.appendChild(fragment);
+    }
+
     function debug() {
-      var debug = document.getElementById('debug');
-      var trLenght = document.getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+      let debug = document.getElementById('debug');
+      let trLenght = document.getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
       debug.innerHTML = "";
       debug.append("Quantidades de rows no DOM: " + trLenght);
     }
